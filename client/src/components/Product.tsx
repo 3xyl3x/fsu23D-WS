@@ -1,7 +1,4 @@
-interface productInterface {
-	title: string;
-}
-const Product = (props: productInterface) => {
+const Product = (props: productModel) => {
 	const { title } = props;
 	return (
 		<>
