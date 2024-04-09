@@ -1,8 +1,15 @@
-const Product = (props: productModel) => {
-	const { title } = props;
+const Product = (props: ProductModel) => {
+	const { title, id, price, addToCart } = props;
+	const handleBuyClick = () => {
+		addToCart(props);
+	};
+
 	return (
 		<>
-			<div>Produkt: {title}</div>
+			<div>
+				ID: {id} |Produkt: {title} | Pris: {price} SEK
+				<button onClick={handleBuyClick}>Köp</button>
+			</div>
 		</>
 	);
 };
