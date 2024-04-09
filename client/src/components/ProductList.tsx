@@ -20,7 +20,7 @@ const ProductList = (props: ProductListProps) => {
 
 	return (
 		<>
-			<div>
+			<div className="row">
 				{products?.map((product: StripeProductModel) => (
 					<Product
 						key={product.id}

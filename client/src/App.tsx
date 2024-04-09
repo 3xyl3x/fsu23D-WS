@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import "bootstrap/dist/css/bootstrap.css";
 import CartItem from "./components/CartItem";
 import ProductList from "./components/ProductList";
 
@@ -33,7 +32,7 @@ function App() {
 	};
 
 	return (
-		<>
+		<div className="container">
 			<h2>Produkter</h2>
 			<ProductList addToCart={handleAddToCart} />
 			<h2>Kundvagn</h2>
@@ -45,7 +44,7 @@ function App() {
 					removeFromCart={handleRemoveFromCart}
 				/>
 			))}
-		</>
+		</div>
 	);
 }
 
