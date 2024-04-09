@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Product from "./Product";
 
 interface ProductListProps {
@@ -6,11 +7,31 @@ interface ProductListProps {
 
 const ProductList = (props: ProductListProps) => {
 	const { addToCart } = props;
+	const [products, setProducts] = useState<StripeProductModel[]>();
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			const response = await fetch("http://localhost:3000/products");
+			const data = await response.json();
+			setProducts(data.data);
+		};
+		fetchProducts();
+	}, []);
 
 	return (
 		<>
-			<Product title="Cykel" id="d123" price={299} addToCart={addToCart} />
-			<Product title="handduk" id="asd21" price={299} addToCart={addToCart} />
+			<div>
+				{products?.map((product: StripeProductModel) => (
+					<Product
+						key={product.id}
+						title={product.name}
+						id={product.id}
+						price={product.default_price.unit_amount / 100}
+						imageURL={product.images[0]}
+						addToCart={addToCart}
+					/>
+				))}
+			</div>
 		</>
 	);
 };

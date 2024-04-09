@@ -1,16 +1,18 @@
 const Product = (props: ProductModel) => {
-	const { title, id, price, addToCart } = props;
+	const { title, id, price, imageURL, addToCart } = props;
 	const handleBuyClick = () => {
 		addToCart(props);
 	};
 
 	return (
-		<>
-			<div>
-				ID: {id} |Produkt: {title} | Pris: {price} SEK
-				<button onClick={handleBuyClick}>Köp</button>
-			</div>
-		</>
+		<div className="bg-white">
+			<h4>{title}</h4>
+			<img src={imageURL} width={"100px"} />
+			<br />
+			{price} SEK
+			<br />
+			<button onClick={handleBuyClick}>Lägg i kundvagn</button>
+		</div>
 	);
 };
 

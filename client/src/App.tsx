@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "./App.css";
+
+import "bootstrap/dist/css/bootstrap.css";
 import CartItem from "./components/CartItem";
 import ProductList from "./components/ProductList";
 
