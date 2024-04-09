@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import Product from "./components/Product";
 import CartItem from "./components/CartItem";
+import ProductList from "./components/ProductList";
 
 function App() {
 	const [cart, setCart] = useState<CartItemModel[]>([]);
@@ -34,19 +34,7 @@ function App() {
 	return (
 		<>
 			<h2>Produkter</h2>
-			<Product
-				title="Cykel"
-				id="d123"
-				price={299}
-				addToCart={handleAddToCart}
-			/>
-
-			<Product
-				title="handduk"
-				id="asd21"
-				price={299}
-				addToCart={handleAddToCart}
-			/>
+			<ProductList addToCart={handleAddToCart} />
 			<h2>Kundvagn</h2>
 			{cart.map((item, index) => (
 				<CartItem
