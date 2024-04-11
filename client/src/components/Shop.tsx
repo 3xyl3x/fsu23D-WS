@@ -62,10 +62,10 @@ const Shop = () => {
 				localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
 				window.location = data.url;
 			} else {
-				console.error("Payment failed:", response.statusText);
+				console.error("Createing checkout session failed");
 			}
 		} catch (error) {
-			console.error("Payment error:", error);
+			console.error("Error:", error);
 		}
 	};
 
