@@ -1,5 +1,7 @@
+import { ProductModel } from "../models";
+
 const Product = (props: ProductModel) => {
-	const { title, id, price, imageURL, addToCart } = props;
+	const { title, price, imageURL, addToCart } = props;
 	const handleBuyClick = () => {
 		addToCart(props);
 	};

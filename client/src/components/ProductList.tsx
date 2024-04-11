@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Product from "./Product";
+import { ProductModel, StripeProductModel } from "../models";
 
 interface ProductListProps {
 	addToCart(product: ProductModel): void;
@@ -13,6 +14,7 @@ const ProductList = (props: ProductListProps) => {
 		const fetchProducts = async () => {
 			const response = await fetch("http://localhost:3000/products");
 			const data = await response.json();
+			console.log(data.data);
 			setProducts(data.data);
 		};
 		fetchProducts();
@@ -27,6 +29,7 @@ const ProductList = (props: ProductListProps) => {
 						title={product.name}
 						id={product.id}
 						price={product.default_price.unit_amount / 100}
+						priceID={product.default_price.id}
 						imageURL={product.images[0]}
 						addToCart={addToCart}
 					/>

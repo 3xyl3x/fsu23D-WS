@@ -1,5 +1,6 @@
 export interface ProductModel {
 	id: string;
+	priceID: string;
 	title: string;
 	imageURL: string;
 	price: number;
@@ -18,6 +19,7 @@ export interface StripeProductModel {
 	images: string[];
 	default_price: {
 		unit_amount: number;
+		id: string;
 	};
 }
 

@@ -30,6 +30,29 @@ const Shop = () => {
 		const updatedCart = cart.filter((item) => item.product.id !== product.id);
 		setCart(updatedCart);
 	};
+
+	const handlePayment = async () => {
+		const response = await fetch("http://localhost:3000/checkout", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify([
+				{
+					product: "price_1P3YmKDiN1OMEJy41JBpzRZU",
+					quantity: 3,
+				},
+				{
+					product: "price_1P3YlrDiN1OMEJy4jSp8szV1",
+					quantity: 1,
+				},
+			]),
+		});
+		const data = await response.json();
+		localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
+		window.location = data.url;
+	};
+
 	return (
 		<>
 			<h2>Produkter</h2>
@@ -43,6 +66,8 @@ const Shop = () => {
 					removeFromCart={handleRemoveFromCart}
 				/>
 			))}
+
+			<button onClick={handlePayment}>Pay</button>
 		</>
 	);
 };

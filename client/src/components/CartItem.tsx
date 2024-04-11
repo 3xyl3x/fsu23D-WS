@@ -10,7 +10,7 @@ const CartItem = (props: CartItemModel) => {
 	return (
 		<>
 			<div>
-				Produkt: {product.title}, antal: {quantity}{" "}
+				[{product.priceID}] Produkt: {product.title}, antal: {quantity}{" "}
 				<button onClick={handleRemoveClick}>Ta bort</button>
 			</div>
 		</>
