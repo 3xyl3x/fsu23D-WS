@@ -5,10 +5,10 @@ import LoginForm from "./components/LoginForm";
 import Shop from "./components/Shop";
 import ProfileBar from "./components/ProfileBar";
 import Confirm from "./components/Confirm";
-import { Mode } from "./models";
+import { Mode, User } from "./models";
 
 function App() {
-	const [user, setUser] = useState<string>("");
+	const [user, setUser] = useState<User>();
 	const [mode, setMode] = useState<Mode>(Mode.Loading);
 
 	useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
 				setUser(data);
 				setMode(Mode.Shop);
 			} else {
-				setUser("");
+				setUser(undefined);
 				setMode(Mode.Login);
 			}
 		};

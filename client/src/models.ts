@@ -22,6 +22,11 @@ export interface StripeProductModel {
 		id: string;
 	};
 }
+export interface User {
+	name: string;
+	email: string;
+	stripeID: string;
+}
 
 export enum Mode {
 	Loading = "loading",

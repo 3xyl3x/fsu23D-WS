@@ -1,38 +1,35 @@
 import { useState } from "react";
-import { Mode } from "../models";
+import { Mode, User } from "../models";
 
 interface RegisterFormProps {
-	setUser(user: string): void;
+	setUser(user: User): void;
 	setMode(mode: Mode): void;
 }
 
 const RegisterForm = (props: RegisterFormProps) => {
 	const { setUser, setMode } = props;
+	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState<string>("");
 
-	const validateEmail = (email: string): boolean => {
-		// Regular expression for email validation
-		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return emailPattern.test(email);
-	};
-
-	const validatePassword = (password: string): boolean => {
-		// Password should be at least 8 characters long
-		return password.length >= 8;
-	};
-
 	const register = async () => {
-		if (!validateEmail(email)) {
+		let valid = true;
+		if (name.length < 2) {
+			setError("Name must be at least 2 characters long.");
+			valid = true;
+		}
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
 			setError("Please enter a valid email address.");
-			return;
+			valid = true;
 		}
 
-		if (!validatePassword(password)) {
+		if (password.length < 8) {
 			setError("Password must be at least 8 characters long.");
-			return;
+			valid = true;
 		}
+
+		if (!valid) return;
 
 		try {
 			const response = await fetch("http://localhost:3000/register", {
@@ -41,6 +38,7 @@ const RegisterForm = (props: RegisterFormProps) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
+					name: name,
 					email: email,
 					password: password,
 				}),
@@ -64,6 +62,18 @@ const RegisterForm = (props: RegisterFormProps) => {
 		<>
 			<h2>Register an account</h2>
 			<form className="card p-2 bg-light">
+				<div className="mb-3">
+					<label htmlFor="inputName" className="form-label">
+						Name
+					</label>
+					<input
+						type="text"
+						className="form-control"
+						id="inputName"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+				</div>
 				<div className="mb-3">
 					<label htmlFor="inputEmail" className="form-label">
 						Email address

@@ -38,7 +38,7 @@ app.get("/products", async (req, res) => {
 
 // user register
 app.post("/register", async (req, res) => {
-	let { email, password } = req.body;
+	let { name, email, password } = req.body;
 	email = email.toLowerCase();
 	const users = await fetchUsers();
 	const userAlreadyExists = users.find((u) => u.email === email);
@@ -47,15 +47,26 @@ app.post("/register", async (req, res) => {
 		return res.status(400).json("User already exist");
 	}
 
+	// Create customer
+	const customer = await stripe.customers.create({
+		name: name,
+		email: email,
+	});
+
 	const hashedPassword = await bcrypt.hash(password, 10);
 
 	const registerUser = {
+		name: name,
 		email: email,
 		password: hashedPassword,
+		stripeID: customer.id,
 	};
 	users.push(registerUser);
 	await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
-	res.status(201).json(registerUser.email);
+	// Remove password from response
+	delete registerUser.password;
+	req.session.user = registerUser;
+	res.status(201).json(registerUser);
 });
 
 // User login
@@ -63,14 +74,16 @@ app.post("/login", async (req, res) => {
 	let { email, password } = req.body;
 	email = email.toLowerCase();
 	const users = await fetchUsers();
-	const userExists = users.find((u) => u.email === email);
+	const user = users.find((u) => u.email === email);
 
-	if (!userExists || !(await bcrypt.compare(password, userExists.password))) {
+	if (!user || !(await bcrypt.compare(password, user.password))) {
 		return res.status(400).json("Wrong user / password");
 	}
 
-	req.session.user = userExists;
-	res.status(200).json(userExists.email);
+	// Remove password from response
+	delete user.password;
+	req.session.user = user;
+	res.status(200).json(user);
 });
 
 // User logout
@@ -87,7 +100,7 @@ app.get("/authorize", async (req, res) => {
 	}
 
 	// Return user session email
-	res.status(200).json(req.session.user.email);
+	res.status(200).json(req.session.user);
 });
 
 // Checkout

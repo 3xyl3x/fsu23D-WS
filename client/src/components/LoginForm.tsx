@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Mode } from "../models";
+import { Mode, User } from "../models";
 
 interface LoginFormProps {
-	setUser(user: string): void;
+	setUser(user: User): void;
 	setMode(mode: Mode): void;
 }
 
@@ -33,12 +33,10 @@ const LoginForm = (props: LoginFormProps) => {
 				setError("");
 			} else {
 				setError("Invalid email or password.");
-				setUser("");
 			}
 		} catch (error) {
 			console.error("Login error:", error);
 			setError("Login failed. Please try again later."); // Set error message for other errors
-			setUser("");
 		}
 	};
 
