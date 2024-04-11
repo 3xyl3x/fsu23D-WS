@@ -70,21 +70,27 @@ const Shop = () => {
 	};
 
 	return (
-		<>
-			<h2>Produkter</h2>
-			<ProductList addToCart={handleAddToCart} />
-			<h2>Kundvagn</h2>
-			{cart.map((item, index) => (
-				<CartItem
-					key={index}
-					product={item.product}
-					quantity={item.quantity}
-					removeFromCart={handleRemoveFromCart}
-				/>
-			))}
+		<div className="row">
+			<div className="col-12 col-md-6">
+				<h2>Produkter</h2>
+				<ProductList addToCart={handleAddToCart} />
+			</div>
+			<div className="col-12 col-md-6">
+				<h2>Kundvagn</h2>
+				{cart.map((item, index) => (
+					<CartItem
+						key={index}
+						product={item.product}
+						quantity={item.quantity}
+						removeFromCart={handleRemoveFromCart}
+					/>
+				))}
 
-			<button onClick={handlePayment}>Pay</button>
-		</>
+				<button className="btn btn-success" onClick={handlePayment}>
+					Pay
+				</button>
+			</div>
+		</div>
 	);
 };
 

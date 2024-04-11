@@ -7,7 +7,7 @@ const Product = (props: ProductModel) => {
 	};
 
 	return (
-		<div className="col-6 col-md-2 p-2">
+		<div className="col-6 col-md-4 p-2">
 			<div className="card text-center h-100 mb-3">
 				<h4>{title}</h4>
 				<img className="img-fluid" src={imageURL} />

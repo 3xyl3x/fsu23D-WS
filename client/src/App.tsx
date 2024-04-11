@@ -49,8 +49,8 @@ function App() {
 			{!user && mode === "register" && (
 				<RegisterForm setUser={setUser} setMode={setMode} />
 			)}
-			{user && <Shop />}
 			{user && <button onClick={logout}>Logout</button>}
+			{user && <Shop />}
 		</div>
 	);
 }
