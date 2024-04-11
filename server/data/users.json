@@ -1,6 +1,22 @@
 [
-	{
-		"email": "testarrr@email.com",
-		"password": "$2b$10$lwiivH9mor6FuWdyRi3eWOKf0/f/bk5MTFVShU0Nmr6EpSITh2hKq"
-	}
+  {
+    "email": "testarrr@email.com",
+    "password": "$2b$10$lwiivH9mor6FuWdyRi3eWOKf0/f/bk5MTFVShU0Nmr6EpSITh2hKq"
+  },
+  {
+    "email": "testarrr2@email.com",
+    "password": "$2b$10$jOFB0mWqMVGEG1bqk5K3Su9rAHbmn7D6DyHG8XMLg7oe0cyqNw7qi"
+  },
+  {
+    "email": "exylex@gmail.com",
+    "password": "$2b$10$zUtSEcDeImMeMgsXxq2iL.tjMF/HS3gAEKwu3NcpdFjVq9dt/0cam"
+  },
+  {
+    "email": "david@dxgruppen.se",
+    "password": "$2b$10$.HIKlzG096XuQwcXiBpAZei8rKDVY0J5eijZu2vlGIury08Ea0pUi"
+  },
+  {
+    "email": "dasdsadvid@dxgruppen.se",
+    "password": "$2b$10$d37Iqiobbj4eZUNNia5z9uJliwP4o8qZiMxZM0ir4QlTMQXNgfV7y"
+  }
 ]

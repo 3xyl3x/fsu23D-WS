@@ -1,3 +1,5 @@
+import { CartItemModel } from "../models";
+
 const CartItem = (props: CartItemModel) => {
 	const { quantity, product, removeFromCart } = props;
 

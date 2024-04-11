@@ -38,7 +38,8 @@ app.get("/products", async (req, res) => {
 
 // user register
 app.post("/register", async (req, res) => {
-	const { email, password } = req.body;
+	let { email, password } = req.body;
+	email = email.toLowerCase();
 	const users = await fetchUsers();
 	const userAlreadyExists = users.find((u) => u.email === email);
 
@@ -59,42 +60,34 @@ app.post("/register", async (req, res) => {
 
 // User login
 app.post("/login", async (req, res) => {
-	try {
-		const users = await fetchUsers();
-		const user = users.find((u) => u.email === email);
+	let { email, password } = req.body;
+	email = email.toLowerCase();
+	const users = await fetchUsers();
+	const userExists = users.find((u) => u.email === email);
 
-		if (!user || !(await bcrypt.compare(password, user.password))) {
-			return res.status(401).json({ error: "Invalid email or password" });
-		}
-
-		req.session.user = user;
-		res.status(200).json({ email: user.email });
-	} catch (error) {
-		res.status(500).json({ error: "Internal server error" });
+	if (!userExists || !(await bcrypt.compare(password, userExists.password))) {
+		return res.status(400).json("Wrong user / password");
 	}
+
+	req.session.user = userExists;
+	res.status(200).json(userExists.email);
 });
 
 // User logout
 app.post("/logout", async (req, res) => {
-	try {
-		req.session.destroy();
-		res.status(200).json({ message: "Logged out successfully" });
-	} catch (error) {
-		res.status(500).json({ error: "Internal server error" });
-	}
+	req.session = null;
+	res.status(200).json("Logged out");
 });
 
 // User authorize
 app.get("/authorize", async (req, res) => {
-	try {
-		if (!req.session.user) {
-			return res.status(401).json({ error: "Unauthorized" });
-		}
-
-		res.status(200).json({ authorized: true, email: req.session.user.email });
-	} catch (error) {
-		res.status(500).json({ error: "Internal server error" });
+	// If there is no user session, return 401
+	if (!req.session.user) {
+		return res.status(401).json("You are not logged in");
 	}
+
+	// Return user session email
+	res.status(200).json(true);
 });
 
 app.listen(3000, () => console.log("Server is online"));

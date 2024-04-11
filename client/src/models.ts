@@ -1,4 +1,4 @@
-interface ProductModel {
+export interface ProductModel {
 	id: string;
 	title: string;
 	imageURL: string;
@@ -6,12 +6,12 @@ interface ProductModel {
 	addToCart(product: ProductModel): void;
 }
 
-interface CartItemModel {
+export interface CartItemModel {
 	product: ProductModel;
 	quantity: number;
 	removeFromCart(product: ProductModel): void;
 }
-interface StripeProductModel {
+export interface StripeProductModel {
 	id: string;
 	name: string;
 	description: string;
@@ -19,4 +19,12 @@ interface StripeProductModel {
 	default_price: {
 		unit_amount: number;
 	};
+}
+
+export enum Mode {
+	Loading = "loading",
+	Login = "login",
+	Register = "register",
+	Shop = "shop",
+	Confirm = "confirm",
 }
