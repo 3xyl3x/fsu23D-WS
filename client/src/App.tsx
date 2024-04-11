@@ -4,6 +4,7 @@ import { CartItemModel, Mode, ProductModel } from "./models";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Shop from "./components/Shop";
+import ProfileBar from "./components/ProfileBar";
 
 function App() {
 	const [user, setUser] = useState<string>("");
@@ -18,6 +19,7 @@ function App() {
 
 			const data = await response.json();
 			if (response.status === 200) {
+				console.log(data);
 				setUser(data);
 				setMode(Mode.Shop);
 			} else {
@@ -28,18 +30,6 @@ function App() {
 		authorize();
 	}, []);
 
-	const logout = async () => {
-		const response = await fetch("http://localhost:3000/logout", {
-			method: "POST",
-			credentials: "include",
-		});
-
-		if (response.status === 200) {
-			setUser("");
-			setMode(Mode.Login);
-		}
-	};
-
 	return (
 		<div className="container">
 			{mode === "loading" && <div>Loading</div>}
@@ -49,7 +39,7 @@ function App() {
 			{!user && mode === "register" && (
 				<RegisterForm setUser={setUser} setMode={setMode} />
 			)}
-			{user && <button onClick={logout}>Logout</button>}
+			{user && <ProfileBar user={user} setUser={setUser} setMode={setMode} />}
 			{user && <Shop />}
 		</div>
 	);

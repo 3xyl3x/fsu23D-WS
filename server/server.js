@@ -87,7 +87,7 @@ app.get("/authorize", async (req, res) => {
 	}
 
 	// Return user session email
-	res.status(200).json(true);
+	res.status(200).json(req.session.user.email);
 });
 
 // Checkout
