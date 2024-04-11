@@ -20,9 +20,9 @@ const ProfileBar = (props: ProfileBarProps) => {
 		}
 	};
 	return (
-		<div className="col-12 bg-light text-center">
+		<div className="col-12 bg-light text-center py-2">
 			<span className="fw-bold">Welcome {user}</span>
-			<button className="mx-4 btn btn-danger" onClick={logout}>
+			<button className="mx-4 btn btn-danger py-0 float-end" onClick={logout}>
 				Logout
 			</button>
 		</div>

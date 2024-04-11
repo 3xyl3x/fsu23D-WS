@@ -69,14 +69,19 @@ const Shop = () => {
 		}
 	};
 
+	const totalSum = cart.reduce(
+		(acc, item) => acc + item.product.price * item.quantity,
+		0
+	);
+
 	return (
-		<div className="row">
-			<div className="col-12 col-md-6">
-				<h2>Produkter</h2>
+		<div className="col-12 row">
+			<div className="col-12 col-md-6 ">
+				<h2 className="border-bottom text-center">Products</h2>
 				<ProductList addToCart={handleAddToCart} />
 			</div>
-			<div className="col-12 col-md-6">
-				<h2>Kundvagn</h2>
+			<div className="col-12 col-md-6 ">
+				<h2 className="border-bottom text-center">Cart</h2>
 				{cart.map((item, index) => (
 					<CartItem
 						key={index}
@@ -86,9 +91,11 @@ const Shop = () => {
 					/>
 				))}
 
-				<button className="btn btn-success" onClick={handlePayment}>
-					Pay
-				</button>
+				{cart.length > 0 && (
+					<button className="btn btn-success w-100" onClick={handlePayment}>
+						Pay ({totalSum} SEK)
+					</button>
+				)}
 			</div>
 		</div>
 	);

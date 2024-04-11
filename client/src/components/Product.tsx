@@ -13,10 +13,11 @@ const Product = (props: ProductModel) => {
 				<img className="img-fluid" src={imageURL} />
 				<div className="position-absolute w-100 bottom-0">
 					<br />
-					<b>{price} SEK</b>
+
+					<span className="badge bg-info mx-2 my-2">{price} SEK</span>
 					<br />
 					<button className="btn btn-success w-100" onClick={handleBuyClick}>
-						Lägg i kundvagn
+						Add to cart
 					</button>
 				</div>
 			</div>
