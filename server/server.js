@@ -90,7 +90,7 @@ app.get("/authorize", async (req, res) => {
 	res.status(200).json(true);
 });
 
-// User logout
+// Checkout
 app.post("/checkout", async (req, res) => {
 	const cart = req.body;
 	const session = await stripe.checkout.sessions.create({
