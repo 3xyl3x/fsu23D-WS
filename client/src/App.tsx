@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { CartItemModel, Mode, ProductModel } from "./models";
 
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Shop from "./components/Shop";
 import ProfileBar from "./components/ProfileBar";
+import Confirm from "./components/Confirm";
+import { Mode } from "./models";
 
 function App() {
 	const [user, setUser] = useState<string>("");
@@ -30,6 +31,12 @@ function App() {
 		authorize();
 	}, []);
 
+	useEffect(() => {
+		if (window.location.href.includes("/confirm")) {
+			setMode(Mode.Confirm);
+		}
+	}, []);
+
 	return (
 		<div className="container">
 			{mode === "loading" && <div>Loading</div>}
@@ -40,6 +47,7 @@ function App() {
 				<RegisterForm setUser={setUser} setMode={setMode} />
 			)}
 			{user && <ProfileBar user={user} setUser={setUser} setMode={setMode} />}
+			{user && mode === "confirm" && <Confirm setMode={setMode} />}
 			{user && <Shop />}
 		</div>
 	);
