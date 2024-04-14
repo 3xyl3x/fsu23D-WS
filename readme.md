@@ -8,11 +8,11 @@ Develop a webshop with Stripe integration for payments, including user registrat
 
 ## Requirements
 
-Register & Login with cookie-Session package - [x]
-User should be saved with crypted password in JSON - [x]
-User should be created in Stripe - [x]
-Place order and pay with Stripe - [x]
-Payment validation and save order in JSON - [x]
+    Register & Login with cookie-Session package - [x].
+    User should be saved with crypted password in JSON - [x].
+    User should be created in Stripe - [x].
+    Place order and pay with Stripe - [x].
+    Payment validation and save order in JSON - [x].
 
 ## Installation
 
