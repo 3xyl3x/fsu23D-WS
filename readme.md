@@ -23,4 +23,5 @@ Develop a webshop with Stripe integration for payments, including user registrat
 5.  Open another terminal
 6.  cd server
 7.  npm install
-8.  nodemon server.js
+8.  create an .env file with you stripe key: STRIPE_KEY= "sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+9.  nodemon server.js
