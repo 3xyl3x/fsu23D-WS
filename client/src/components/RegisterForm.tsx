@@ -34,6 +34,7 @@ const RegisterForm = (props: RegisterFormProps) => {
 		try {
 			const response = await fetch("http://localhost:3000/register", {
 				method: "POST",
+				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -48,13 +49,12 @@ const RegisterForm = (props: RegisterFormProps) => {
 				const data = await response.json();
 				setUser(data);
 				setMode(Mode.Shop);
-				setError(""); // Clear error message if registration is successful
+				setError("");
 			} else {
-				setError("Registration failed. Please try again."); // Set error message if registration fails
+				setError("Registration failed. Please try again.");
 			}
 		} catch (error) {
-			console.error("Registration error:", error);
-			setError("Registration failed. Please try again later."); // Set error message for other errors
+			setError("Registration failed. Please try again later.");
 		}
 	};
 

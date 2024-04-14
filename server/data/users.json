@@ -4,5 +4,29 @@
     "email": "david@dxgruppen.se",
     "password": "$2b$10$FnBw./x4CFleU/GWXUZcHeGGUYBqrC2mkRJwyBr2YVDYjAEDe1Hvi",
     "stripeID": "cus_PuFt3VahyVW68P"
+  },
+  {
+    "name": "Megaman",
+    "email": "exylex@gmail.com",
+    "password": "$2b$10$UAESP.HVdcsTUklVZOCisO4YXDSTc/ox7DTvSaWZLJVvmghF.d5m6",
+    "stripeID": "cus_PuTZQbIMltL0J4"
+  },
+  {
+    "name": "dasdsadsad",
+    "email": "asdsadsa@asdsad.coasdm",
+    "password": "$2b$10$k.Kw1LSB4mdaW1g25aNaTexJ5hpZoh/RerHXVmUbBntQ9L9HH/8KK",
+    "stripeID": "cus_PuTgJn7bsXAsJD"
+  },
+  {
+    "name": "DAVID TÖRNROS",
+    "email": "david@dxgrussppen.se",
+    "password": "$2b$10$CYqHBAN2FDtFHUJUCvB9ue8wA20gqSq35k6aEUgjLQUsk0Lp72hpe",
+    "stripeID": "cus_PuTl6yg9kr5BeH"
+  },
+  {
+    "name": "sadsadsad",
+    "email": "asdsadsa@asdsad.coasasdsaddm",
+    "password": "$2b$10$/gwkoaIPWAo2.DbDCZaPB.Z54matKz3G14cUXmc.iT.3ymwMylZq.",
+    "stripeID": "cus_PuU42NU1TuoSaT"
   }
 ]

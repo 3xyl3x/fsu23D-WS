@@ -9,17 +9,14 @@ interface ConfirmProps {
 const Confirmation = (props: ConfirmProps) => {
 	const { setMode } = props;
 	const [verified, setVerified] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		if (!verified) {
 			const verifySession = async () => {
-				let sessionId;
-				const dataFromLs = localStorage.getItem("sessionId");
-
-				if (dataFromLs) {
-					sessionId = JSON.parse(dataFromLs);
-				}
+				const sessionId = JSON.parse(
+					localStorage.getItem("sessionId") || "null"
+				);
 
 				const response = await fetch("http://localhost:3000/verify", {
 					method: "POST",
@@ -30,11 +27,10 @@ const Confirmation = (props: ConfirmProps) => {
 				});
 
 				const data = await response.json();
-
-				if (response.ok) {
-					setVerified(data.verified);
-					setIsLoading(false);
-				}
+				setLoading(false);
+				setVerified(data.verified ?? false);
+				localStorage.removeItem("sessionId");
+				localStorage.setItem("cart", JSON.stringify([]));
 			};
 
 			verifySession();
@@ -42,9 +38,31 @@ const Confirmation = (props: ConfirmProps) => {
 	}, [verified]);
 
 	return (
-		<div>
-			<h3>{verified && !isLoading ? "Purchase complete" : "LOADING..."}</h3>
-		</div>
+		<>
+			{loading ? (
+				<div className="spinner-border text-primary" role="status">
+					<span className="visually-hidden">Loading...</span>
+				</div>
+			) : verified ? (
+				<div className="alert alert-success" role="alert">
+					<span>
+						Purchase complete,
+						<a href="#" onClick={() => setMode(Mode.Shop)}>
+							return to shop?
+						</a>
+					</span>
+				</div>
+			) : (
+				<div className="alert alert-danger" role="alert">
+					<span>
+						Purchase not completed,
+						<a href="#" onClick={() => setMode(Mode.Shop)}>
+							return to shop?
+						</a>
+					</span>
+				</div>
+			)}
+		</>
 	);
 };
 

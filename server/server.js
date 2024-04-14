@@ -65,6 +65,7 @@ app.post("/register", async (req, res) => {
 	await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
 	// Remove password from response
 	delete registerUser.password;
+	console.log("USER Register");
 	req.session.user = registerUser;
 	res.status(201).json(registerUser);
 });
@@ -82,6 +83,7 @@ app.post("/login", async (req, res) => {
 
 	// Remove password from response
 	delete user.password;
+	console.log("USER LOG IN");
 	req.session.user = user;
 	res.status(200).json(user);
 });
@@ -94,12 +96,12 @@ app.post("/logout", async (req, res) => {
 
 // User authorize
 app.get("/authorize", async (req, res) => {
-	// If there is no user session, return 401
+	console.log("AUTHORIZING:" + req.session.user ? "true" : "false");
+
 	if (!req.session.user) {
 		return res.status(401).json("You are not logged in");
 	}
 
-	// Return user session email
 	res.status(200).json(req.session.user);
 });
 
@@ -108,18 +110,46 @@ app.post("/checkout", async (req, res) => {
 	const cart = req.body;
 	const session = await stripe.checkout.sessions.create({
 		mode: "payment",
-		customer: "cus_Pu5gsEeBxmGL3r",
+		customer: req.session.user.stripeID,
 		line_items: cart.map((item) => {
 			return {
 				price: item.product,
 				quantity: item.quantity,
 			};
 		}),
-		success_url: "http://localhost:5173/confirm",
+		success_url: "http://localhost:5173",
 		cancel_url: "http://localhost:5173",
 	});
 
 	res.status(200).json({ url: session.url, sessionId: session.id });
+});
+
+// Verify
+app.post("/verify", async (req, res) => {
+	const sessionId = req.body.sessionId;
+
+	const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+	if (session.payment_status === "paid") {
+		const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
+
+		const order = {
+			sessionId: sessionId,
+			orderNumber: Math.floor(Math.random() * 100000000),
+			customerName: session.customer_details.name,
+			products: lineItems.data,
+			total: session.amount_total,
+			date: new Date(),
+		};
+
+		const orders = JSON.parse(await fs.readFile("./data/orders.json"));
+		const existingOrder = orders.find((order) => order.sessionId === sessionId);
+		if (!existingOrder) {
+			orders.push(order);
+			await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 4));
+		}
+		res.status(200).json({ verified: true });
+	} else return res.status(400).json("Not verified");
 });
 
 app.listen(3000, () => console.log("Server is online"));

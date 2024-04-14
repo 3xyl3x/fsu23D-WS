@@ -20,9 +20,10 @@ function App() {
 
 			const data = await response.json();
 			if (response.status === 200) {
-				console.log(data);
 				setUser(data);
-				setMode(Mode.Shop);
+				if (localStorage.getItem("sessionId")) {
+					setMode(Mode.Confirm);
+				} else setMode(Mode.Shop);
 			} else {
 				setUser(undefined);
 				setMode(Mode.Login);
@@ -31,24 +32,23 @@ function App() {
 		authorize();
 	}, []);
 
-	useEffect(() => {
-		if (window.location.href.includes("/confirm")) {
-			setMode(Mode.Confirm);
-		}
-	}, []);
-
 	return (
 		<div className="container">
-			{mode === "loading" && <div>Loading</div>}
-			{!user && mode === "login" && (
+			{mode === Mode.Loading && (
+				<div className="spinner-border text-primary" role="status">
+					<span className="visually-hidden">Loading...</span>
+				</div>
+			)}
+
+			{!user && mode === Mode.Login && (
 				<LoginForm setUser={setUser} setMode={setMode} />
 			)}
-			{!user && mode === "register" && (
+			{!user && mode === Mode.Register && (
 				<RegisterForm setUser={setUser} setMode={setMode} />
 			)}
 			{user && <ProfileBar user={user} setUser={setUser} setMode={setMode} />}
-			{user && mode === "confirm" && <Confirm setMode={setMode} />}
-			{user && <Shop />}
+			{user && mode === Mode.Confirm && <Confirm setMode={setMode} />}
+			{user && mode === Mode.Shop && <Shop />}
 		</div>
 	);
 }
