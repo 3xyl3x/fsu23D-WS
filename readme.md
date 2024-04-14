@@ -6,6 +6,14 @@
 
 Develop a webshop with Stripe integration for payments, including user registration, login, and storage of user details in both Stripe and a server-side JSON file. Implement payment validation and save orders on the server. Build login system using the cookie-session package. Backend developed in Node/Express, frontend in React/Typescript.
 
+## Requirements
+
+Register & Login with cookie-Session package - [x]
+User should be saved with crypted password in JSON - [x]
+User should be created in Stripe - [x]
+Place order and pay with Stripe - [x]
+Payment validation and save order in JSON - [x]
+
 ## Installation
 
 1.  Open a terminal
